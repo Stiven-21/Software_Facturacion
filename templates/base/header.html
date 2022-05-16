@@ -37,12 +37,13 @@
                             <li class="nav-item dropdown ">
                                 <a class="nav-link active " href="#" id="navbarDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-user-circle" style="font-size:25px"></i>
+                                    <span class="mt-5">{{session['rol']}}</span>
+                                    <i class="fa fa-user" style="font-size:25px"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item disabled" href="#">{{session['user']}} </a></li>
-                                    <li><a class="dropdown-item" href="#">Account</a></li>
                                     <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('CrearUsuario')}}">Nuevo usuario</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{{url_for('logout')}}">Logout</a></li>
                                 </ul>

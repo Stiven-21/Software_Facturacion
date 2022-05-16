@@ -20,12 +20,12 @@ def login():
         return render_template("index.html")
     else:
         if request.method=='POST':
-            usuario=request.form['username']
+            username=request.form['username']
             password=request.form['password']
-            if loginController.iniciarSesion(usuario,password):
+            if loginController.iniciarSesion(username,password):
                 return redirect("/")
             else:
-                return render_template("views/login/login.html")
+                return render_template("views/login/login.html",username=username)
         return render_template("views/login/login.html")
     
 @app.get("/logout")

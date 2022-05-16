@@ -2,9 +2,36 @@
 
 {% block body %}
 
-<div class="container mt-5" >
+<div class="container mt-5">
     <div class="row row-cols-1 row-cols-md-2 g-4">
-        index
+        <table class='table display dataTable'>
+            <thead class="bg-dark text-light">
+                <th>Opciones</th>
+                <th>Codigo</th>
+                <th>Cliente</th>
+                <th>Observaciones</th>
+                <th>Email Enviado</th>
+                <th>Pago</th>
+                <th>Total</th>
+                <th>Fecha</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                    <td>12</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/fechaActual.js') }}" defer></script>
+
 {% endblock %}

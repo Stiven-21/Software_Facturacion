@@ -17,6 +17,21 @@
 CREATE DATABASE IF NOT EXISTS `software_facturacion` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `software_facturacion`;
 
+-- Volcando estructura para tabla software_facturacion.estado
+CREATE TABLE IF NOT EXISTS `estado` (
+  `id_estado` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(50) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_estado`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla software_facturacion.estado: ~2 rows (aproximadamente)
+DELETE FROM `estado`;
+/*!40000 ALTER TABLE `estado` DISABLE KEYS */;
+INSERT INTO `estado` (`id_estado`, `estado`) VALUES
+	(1, 'pagado'),
+	(2, 'no pagado');
+/*!40000 ALTER TABLE `estado` ENABLE KEYS */;
+
 -- Volcando estructura para tabla software_facturacion.facturas
 CREATE TABLE IF NOT EXISTS `facturas` (
   `id_factura` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,9 +43,12 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   `precio` float NOT NULL DEFAULT '0',
   `descuento` float NOT NULL DEFAULT '0',
   `impuesto` float NOT NULL DEFAULT '0',
+  `id_estado` int(11) NOT NULL,
   PRIMARY KEY (`id_factura`),
   KEY `FK_factura_cliente` (`id_user`),
-  CONSTRAINT `FK_factura_cliente` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
+  KEY `FK_factura_estado` (`id_estado`),
+  CONSTRAINT `FK_factura_cliente` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
+  CONSTRAINT `FK_factura_estado` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla software_facturacion.facturas: ~0 rows (aproximadamente)
@@ -47,11 +65,13 @@ CREATE TABLE IF NOT EXISTS `login` (
   PRIMARY KEY (`id_login`),
   KEY `FK_user_login` (`id_user`),
   CONSTRAINT `FK_user_login` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla software_facturacion.login: ~0 rows (aproximadamente)
 DELETE FROM `login`;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
+INSERT INTO `login` (`id_login`, `id_user`, `user`, `password`) VALUES
+	(1, 1, 'pelon', 'pelon');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 
 -- Volcando estructura para tabla software_facturacion.roles
@@ -61,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id_rol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla software_facturacion.roles: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla software_facturacion.roles: ~2 rows (aproximadamente)
 DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id_rol`, `rol`) VALUES
@@ -83,11 +103,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id_user`),
   KEY `FK_rol_user` (`id_rol`),
   CONSTRAINT `FK_rol_user` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla software_facturacion.users: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla software_facturacion.users: ~1 rows (aproximadamente)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id_user`, `identificacion`, `nombre`, `apellido`, `telefono`, `email`, `ciudad`, `id_rol`) VALUES
+	(1, 123456789, 'pelon', 'pelon', '12345678', 'pelon@gmail.com', 'Mocoa', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

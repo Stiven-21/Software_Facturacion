@@ -13,7 +13,7 @@
                 <form class="form form-center" method="POST" action="{{url_for('login')}}">
                     <label for="usuario">Usuario <span style="color: red;">*</span></label>
                     <input class="form-control my-1" value="{{username}}" id="username" type="text" name="username" tabindex="1"
-                        placeholder="example@.com">
+                        placeholder="example@.com" required>
                     <label for="pasword">Contraseña <span style="color: red;">*</span></label>
                     <input class="form-control" type="password" id="password" name="password" required
                         tabindex="2" placeholder="******" size="15">
