@@ -8,12 +8,7 @@ def iniciarSesion(username,password):
             flash('Contraseña','malo')
         else:
             result = getValidateLoginModel.validateLogin(username)
-            if result[3] == password:
-                session['token'] = result[0]
-                session['user_id'] = result[1]
-                session['username'] = result[2]
-            else:
-                flash("Usuario incorrecto","malo")
+            
     except:
         print("Error occured in signinUser")
     

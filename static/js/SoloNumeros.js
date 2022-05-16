@@ -1,0 +1,5 @@
+jQuery(document).ready(function(){
+	jQuery("#identificacion").on('input', function (e) {
+		jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+	});
+});
