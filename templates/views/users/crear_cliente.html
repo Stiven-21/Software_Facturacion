@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+<div class="container mt-4 col-12 col-sm-10 col-md-7 col-lg-5" >
+    <div class="row ">
+        <div class="col-12  text-center mt-2 mb-1 border-bottom border-dark">
+            <div class="h5">REGISTRAR CLIENTE</div>
+        </div>
+        <div class="col-12">
+            <form action="{{ url_for('CrearUsuario') }}" method="POST">
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <label for="identificacion" class="form-label">Identificacion: <b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" id="identificacion" placeholder="identificacion de cliente" name="identificacion" value="{{ identificacion }}">
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label for="nombre" class="form-label">Nombre: <b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" id="nombre" placeholder="nombre del cliente" name="nombre" value="{{ nombre }}">
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label for="apellido" class="form-label">Apellido: <b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" id="apellido" placeholder="apellido del cliente" name="apellido" value="{{ apellido }}">
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label for="telefono" class="form-label">Telefono: <b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" id="telefono" placeholder="telefono" name="telefono" value="{{ telefono }}">
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label for="ciudad" class="form-label">Ciudad: <b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" id="ciudad" placeholder="ciudad" name="ciudad" value="{{ ciudad }}">
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label for="email" class="form-label">Email: <b style="color: red;">*</b></label>
+                        <input type="email" class="form-control" id="email" placeholder="example@domain.co" name="email" value="{{ email }}">
+                    </div>
+
+                    <div class="d-grid gap-2 col-6 mx-auto mb-3">
+                        <button type="submit" class="btn btn-dark" >guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12">
+            {% with messages = get_flashed_messages(category_filter=["false"]) %}
+                {% if messages %}
+                    <ul class="alert alert-danger">
+                        {% for message in messages %}
+                        <li style="padding-left: 10px; list-style: none;"><small>{{message}}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% with messages = get_flashed_messages(category_filter=["true"]) %}
+                {% if messages %}
+                    <ul class="alert alert-success text-center">
+                        {% for message in messages %}
+                        <li style="padding-left: 10px; list-style: none;"><small>{{message}}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ url_for('static', filename='js/SoloNumeros.js') }}" defer></script>
+{% endblock %}

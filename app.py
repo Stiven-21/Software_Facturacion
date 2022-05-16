@@ -1,15 +1,17 @@
-from flask import Flask, redirect,render_template,url_for,request,session,jsonify
-from controllers.verifyLoginController import verifyLogin
+from flask import Flask, redirect,render_template,url_for,request,session
+from controllers.AutentificacionController import verifyLogin
+from controllers.ValidacionesController import numero
+from controllers import CrearClienteController
 
 app = Flask(__name__)
-app.secret_key = 'fjifjidfjied5df45df485h48@'
+app.secret_key = 'aiiwiuiisiopipasdia@'
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if verifyLogin():
         return render_template("index.html")
     else:
-        return render_template("views/auth/login.html")
+        return render_template("views/login/login.html")
     
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -29,4 +31,21 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+@app.route("/crear-cliente", methods=["GET", "POST"])
+def CrearUsuario():
+    if verifyLogin():
+        if request.method=='POST':
+            identificacion = numero(request.form['identificacion'])
+            nombre = request.form['nombre']
+            apellido = request.form['apellido']
+            telefono = request.form['telefono']
+            ciudad = request.form['ciudad']
+            email = request.form['email']
+            if not CrearClienteController.CrearCliente(identificacion, nombre, apellido, ciudad, telefono, email):
+                return render_template("views/users/crear_cliente.html", identificacion=identificacion, nombre=nombre, apellido=apellido, telefono=telefono, ciudad=ciudad, email=email )
+            return redirect('/crear-usuario')
+        return render_template("views/users/crear_cliente.html")
+    else:
+        return render_template("views/login/login.html")
+    
 app.run(debug=True)
