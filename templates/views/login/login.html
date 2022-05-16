@@ -2,9 +2,54 @@
 
 {% block body %}
 
-<div class="container mt-5" >
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        login
-    </div>
+<div class="container py-5 col-10 col-sm-10 col-md-8 col-lg-5 col-xl-3">
+        <div class="card">
+            <div class="card-header bg-dark text-light text-center">
+                Iniciar Sesión
+            </div>
+            
+            <div class="card-body" style="padding-top: 20px; ">
+    
+                <form class="form form-center" method="POST" action="{{url_for('login')}}">
+                    <label for="usuario">Usuario <span style="color: red;">*</span></label>
+                    <input class="form-control my-1" value="{{username}}" id="username" type="text" name="username" tabindex="1"
+                        placeholder="example@.com">
+                    <label for="pasword">Contraseña <span style="color: red;">*</span></label>
+                    <input class="form-control" type="password" id="password" name="password" required
+                        tabindex="2" placeholder="******" size="15">
+                    <p class="card-text mt-3 text-center">
+                        <button type="submit" class="btn btn-outline-dark" tabindex="3"
+                            style="width: 100%;">Ingresar</button>
+                    </p>
+                </form>
+                <p class="card-text mt-3 text-center">
+                    <small>
+                        
+                    </small>
+                </p>
+                <p class="card-text mt-3 text-center">
+                    {% with messages = get_flashed_messages(category_filter=["malo"]) %}
+                    {% if messages %}
+                    <ul class="alert alert-danger">
+                        <small>Campos requeridos *</small>
+                        {% for message in messages %}
+                        <li style="padding-left: 10px; list-style: none;"><small>{{message}}</small></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    {% with messages = get_flashed_messages(category_filter=["bueno"]) %}
+                    {% if messages %}
+                    <ul class="alert alert-success text-center">
+                        {% for message in messages %}
+                        <li style="padding-left: 10px; list-style: none;"><small>{{message}}</small></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                </p>
+            </div>
+        </div>
+    
 </div>
 {% endblock %}

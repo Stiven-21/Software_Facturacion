@@ -1,5 +1,5 @@
 from flask import session
-def verifyLogin():
+def autenticado():
     if 'username' in session:
         return True
     else:
