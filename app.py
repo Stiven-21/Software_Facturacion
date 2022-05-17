@@ -1,8 +1,7 @@
 from flask import Flask, redirect,render_template,url_for,request,session
 from controllers.autenticacionController import autenticado
-from controllers import loginController
 from controllers.validacionesController import numero
-from controllers import CrearClienteController
+from controllers import CrearClienteController,loginController,facturasController
 
 app = Flask(__name__)
 app.secret_key = 'asdkfaysdf28372@'
@@ -10,7 +9,12 @@ app.secret_key = 'asdkfaysdf28372@'
 @app.route("/", methods=["GET", "POST"])
 def index():
     if autenticado():
-        return render_template("index.html")
+        if request.method == 'GET':
+            facturas = facturasController.facturasController()
+            #print(facturas)
+            return render_template("index.html",facturas = facturas)
+        if request.method == 'POST':
+            return render_template("index.html")
     else:
         return render_template("views/login/login.html")
     
@@ -27,7 +31,6 @@ def login():
             else:
                 return render_template("views/login/login.html",username=username)
         return render_template("views/login/login.html")
-    
 @app.get("/logout")
 def logout():
     session.clear()

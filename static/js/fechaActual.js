@@ -3,5 +3,5 @@ $( document ).ready(function() {
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
     
-    fecha.value = hoy.toDateString();
+    fecha.innerHTML = hoy.toDateString();
 });

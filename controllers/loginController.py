@@ -10,7 +10,6 @@ def iniciarSesion(username,password):
             result = getValidateLoginModel.validateLogin(username)
             if result[3] == password:
                 user = getUserModel.getUser(result[0])
-                print(user)
                 session['token'] = result[0]
                 session['user_id'] = result[1]
                 session['username'] = result[2]
@@ -22,5 +21,5 @@ def iniciarSesion(username,password):
         return auth
     except:
         flash("Usuario incorrecto","malo")
-        print("Error occured in signinUser")
+        print("Error occured in login Model")
     
