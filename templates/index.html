@@ -2,36 +2,39 @@
 
 {% block body %}
 
-<div class="container mt-5">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <table class='table display dataTable'>
-            <thead class="bg-dark text-light">
-                <th>Opciones</th>
-                <th>Codigo</th>
-                <th>Cliente</th>
-                <th>Observaciones</th>
-                <th>Email Enviado</th>
-                <th>Pago</th>
-                <th>Total</th>
-                <th>Fecha</th>
-            </thead>
-            <tbody>
+<div class="container-fluid mt-5">
+    <table class='table display dataTable'>
+        <thead class="bg-dark text-light">
+            <th>Opciones</th>
+            <th>ID Factura</th>
+            <th>Referencia</th>
+            <th>Cliente</th>
+            <th>Identificación</th>
+            <th>Observaciones</th>
+            <th>Pago</th>
+            <th>Estado </th>
+            <th>Fecha</th>
+        </thead>
+        <tbody>
+            {% for factura in facturas %}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td id="fecha"></td>
+                    <td><button>Editar</button><button>Eliminar</button></td>
+                    <th scope="row">{{ factura['id_factura'] }}</th>
+                    <td>{{ factura['referencia'] }}</td>
+                    <td>{{ factura['user'] }}</td>
+                    <td>{{ factura['user_id'] }}</td>
+                    <td>{{ factura['observacion'] }}</td>
+                    <td>{{ (factura['precio']*factura['cantidad']) }}</td>
+                    <td>{{ (factura['estado']) }}</td>
+                    <td>{{ (factura['fecha'])}}</td>
+                    
                 </tr>
-                
-            </tbody>
-        </table>
-    </div>
+            {% endfor %}
+            
+        </tbody>
+    </table>
 </div>
 {% endblock %}
 {% block javascript %}
-<script src="{{ url_for('static', filename='js/fechaActual.js') }}"></script>
+
 {% endblock %}

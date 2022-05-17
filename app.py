@@ -11,7 +11,7 @@ def index():
     if autenticado():
         if request.method == 'GET':
             facturas = facturasController.facturasController()
-            #print(facturas)
+            print(facturas)
             return render_template("index.html",facturas = facturas)
         if request.method == 'POST':
             return render_template("index.html")
