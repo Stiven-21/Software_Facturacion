@@ -1,8 +1,9 @@
-from flask import Flask, redirect,render_template,url_for,request,session
+from flask import Flask, redirect,render_template,url_for,request,session, jsonify
 from controllers.autenticacionController import autenticado
 from controllers import loginController
 from controllers.validacionesController import numero
 from controllers import CrearClienteController
+from models import getUserModel, getRolesModel
 
 app = Flask(__name__)
 app.secret_key = 'asdkfaysdf28372@'
@@ -45,9 +46,37 @@ def CrearUsuario():
             email = request.form['email']
             if not CrearClienteController.CrearCliente(identificacion, nombre, apellido, ciudad, telefono, email):
                 return render_template("views/users/crear_cliente.html", identificacion=identificacion, nombre=nombre, apellido=apellido, telefono=telefono, ciudad=ciudad, email=email )
-            return redirect('/crear-usuario')
+            return redirect(url_for('CrearUsuario'))
         return render_template("views/users/crear_cliente.html")
     else:
         return render_template("views/login/login.html")
+    
+@app.route("/mi-perfil", methods=['GET', 'POST'])
+def miPerfil():
+    if autenticado():
+        usuario = getUserModel.getUser(session.get('token'))
+        if request.method=='POST':
+            redirect(url_for('miPerfil'))
+        return render_template('views/profile/mi_perfil.html', usuario=usuario)
+    else:
+        return render_template("views/login/login.html")
+    
+@app.route('/buscar-usuario', methods=['POST'])
+def buscarUsuario():
+    if autenticado():
+        identificacion = numero(request.form['identificacion'])
+        usuario = getUserModel.getUserSearch(identificacion=identificacion)
+        return jsonify(usuario)
+    else:
+        return render_template("views/login/login.html")
+    
+@app.route('/roles', methods=['GET'])
+def trearRoles():
+    if autenticado():
+        roles = getRolesModel.getRoles()
+        return jsonify(roles)
+    else:
+        return render_template("views/login/login.html")
+    
     
 app.run(debug=True)
