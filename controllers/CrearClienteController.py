@@ -37,7 +37,7 @@ def CrearCliente(identificacion, nombre, apellido, ciudad, telefono, email):
                         flash('Cliente registrado con exito!','true')
                         return True
                 else:
-                    flash('La identificacion ya se encuentra registrada','false')
+                    flash('Ya hay un cliente registrado con esta identificacion','false')
                     return False
     except:
         print("Ha ocurrido un error en el controlador de crear cliente")

@@ -39,16 +39,87 @@
             <div class="row mt-3">
                 <div class="col-12">
                     <div class="accordion accordion-flush" id="accordionFlushExample">
+
+
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
                                     Informacion general
                                 </button>
                             </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            ACTUALIZAR DATOS
+                                        </div>
+
+                                        <div class="col-12">
+                                            <form action="/mi-perfil" method="POST">
+                                                <div class="row">
+                                                    <div class="col-12 mb-2">
+                                                        <label for="identificacion" class="form-label">Identificacion: <b style="color: red;">*</b></label>
+                                                        <input type="text" class="form-control" id="identificacion" placeholder="identificacion de cliente" name="identificacion" value="{{ identificacion }}">
+                                                    </div>
+                                
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="nombre" class="form-label">Nombre: <b style="color: red;">*</b></label>
+                                                        <input type="text" class="form-control" id="nombre" placeholder="nombre del cliente" name="nombre" value="{{ nombre }}">
+                                                    </div>
+                                
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="apellido" class="form-label">Apellido: <b style="color: red;">*</b></label>
+                                                        <input type="text" class="form-control" id="apellido" placeholder="apellido del cliente" name="apellido" value="{{ apellido }}">
+                                                    </div>
+                                
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="telefono" class="form-label">Telefono: <b style="color: red;">*</b></label>
+                                                        <input type="text" class="form-control" id="telefono" placeholder="telefono" name="telefono" value="{{ telefono }}">
+                                                    </div>
+                                
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="ciudad" class="form-label">Ciudad: <b style="color: red;">*</b></label>
+                                                        <input type="text" class="form-control" id="ciudad" placeholder="ciudad" name="ciudad" value="{{ ciudad }}">
+                                                    </div>
+                                
+                                                    <div class="col-12 mb-3">
+                                                        <label for="email" class="form-label">Email: <b style="color: red;">*</b></label>
+                                                        <input type="email" class="form-control" id="email" placeholder="example@domain.co" name="email" value="{{ email }}">
+                                                    </div>
+                                
+                                                    <div class="d-grid gap-2 col-6 mx-auto mb-3">
+                                                        <button type="submit" class="btn btn-dark" >ACTUALIZAR</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="col-12">
+                                            {% with messages = get_flashed_messages(category_filter=["false"]) %}
+                                                {% if messages %}
+                                                    <ul class="alert alert-danger">
+                                                        {% for message in messages %}
+                                                            <li style="padding-left: 10px; list-style: none;"><small>{{message}}</small></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            {% endwith %}
+                                            {% with messages = get_flashed_messages(category_filter=["true"]) %}
+                                                {% if messages %}
+                                                    <ul class="alert alert-success text-center">
+                                                        {% for message in messages %}
+                                                            <li style="padding-left: 10px; list-style: none;"><small>{{message}}</small></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            {% endwith %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
@@ -59,6 +130,8 @@
                                 <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
                             </div>
                         </div>
+
+                        {% if session.get('rol') == 'administrador' %}
                         <div class="accordion-item mb-3">
                             <h2 class="accordion-header" id="flush-headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
@@ -72,21 +145,24 @@
                                             <form method="POST" id="get_cliente">
                                                 <div class="row">
                                                     <div class="col-9 mb-3">
-                                                        <input type="text" class="form-control" id="identificacion" placeholder="identificacion de cliente" name="identificacion" value="{{ identificacion }}">
+                                                        <input type="text" class="form-control" id="identificacion_search" placeholder="identificacion de cliente" name="identificacion_search">
                                                     </div>
                                                     <div class="col-3 mb-3">
-                                                        <button type="button" class="btn btn-success" >Buscar</button>
+                                                        <button type="submit" class="btn btn-success" >Buscar</button>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="col-12 mb-2" id="nuevo_empleado"></div>
-                                    <div class="row">
-                                        <div class="col"></div>
+                                        <div class="col-12 mb-2">
+                                            <form method="POST" id="nuevo_empleado"></form>
+                                        </div>
+                                        <div class="col-12-mb-2" id="alerta_empleado"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -97,5 +173,8 @@
 
 {% block javascript %}
     <script src="{{ url_for('static', filename='js/soloNumeros.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/buscarEmpleadoAjax.js') }}" defer></script>
+    {% if session.get('rol') == 'administrador' %}
+        <script src="{{ url_for('static', filename='js/buscarEmpleadoAjax.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='js/registrar_empleado.js') }}" defer></script>
+    {% endif %}
 {% endblock %}
