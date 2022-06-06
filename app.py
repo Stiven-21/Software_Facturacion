@@ -117,5 +117,19 @@ def crearLogin():
     else:
         return render_template("views/login/login.html")
     
+@app.route('/crear-factura', methods=['GET','POST'])
+def crearFactura():
+    if autenticado():
+        return render_template("views/facturas/crear.html")
+    else:
+        return render_template("views/facturas/crear.html")
+    
+@app.route("/cliente", methods=['POST'])
+def Cliente():
+    if autenticado():
+        return render_template("views/facturas/crear.html")
+    else:
+        return render_template("views/facturas/crear.html")
+    
     
 app.run(debug=True)

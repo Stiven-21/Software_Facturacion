@@ -15,7 +15,6 @@ $(document).ready(function(){
             success: function(usuario){
                 if(usuario!=null){
                     if(usuario[9] != 'administrador'){
-                        console.log(usuario[9])
                         if(usuario[9] == 'empleado'){
                             alerta.innerHTML = '<ul class="alert alert-danger">'+
                                             '<li style="padding-left: 10px; list-style: none;"><small>Este usuario ya tiene una cuenta de logeo</li>'+

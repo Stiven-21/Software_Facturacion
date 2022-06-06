@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+
+<div class="container-fluid mt-5">
+    <div class="row mb-3">
+        <div class="col-3 text-start mb-3">
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <a href="{{url_for('CrearUsuario')}}" class="btn btn-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill-rule="evenodd" d="M19.25 1a.75.75 0 01.75.75V4h2.25a.75.75 0 010 1.5H20v2.25a.75.75 0 01-1.5 0V5.5h-2.25a.75.75 0 010-1.5h2.25V1.75a.75.75 0 01.75-.75zM9 6a3.5 3.5 0 100 7 3.5 3.5 0 000-7zM4 9.5a5 5 0 117.916 4.062 7.973 7.973 0 015.018 7.166.75.75 0 11-1.499.044 6.469 6.469 0 00-12.932 0 .75.75 0 01-1.499-.044 7.973 7.973 0 015.059-7.181A4.993 4.993 0 014 9.5z"></path>
+                    </svg>
+                </a>
+                <form method="post" id="search_cliente">
+                    <input type="text" class="form-control" id="identificacion_search" name="identificacion_search">
+                </form>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="row">
+                <div class="col-6">
+                    <input type="text" class="form-control" id="cliente" disabled>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="fecha_factura" disabled>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <form method="post" id="regis_factura" class="row">
+                <div class="col-2">
+                    <input type="text" class="form-control" id="referencia" placeholder="referencia de factura" name="referencia">
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control" id="producto" placeholder="producto" name="prodcuto">
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control" id="cantidad" placeholder="cantidad" name="cantidad">
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control" id="precio" placeholder="precio" name="precio">
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control" id="descuento" placeholder="descuento" name="descuento">
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control" id="impuesto" placeholder="19%" name="impuesto" disabled>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <table class='table display dataTable'>
+        <thead class="bg-dark text-light text-center">
+            <th>Referencia</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Descuento</th>
+            <th>Impuesto</th>
+            <th>Total </th>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ url_for('static', filename='js/cliente.js') }}" defer></script>
+{% endblock %}
