@@ -7,3 +7,11 @@ def getFacturas():
         return myresult
     except:
         print("Error en getFacturas model")
+        
+def getFacturasWithReferencia(referencia):
+    try:
+        cursor.execute("SELECT * FROM facturas WHERE referencia = '"+referencia+"' ")
+        myresult = cursor.fetchall()
+        return myresult
+    except:
+        print("Error en getFacturasWithReferencia model")

@@ -16,7 +16,6 @@
                 </form>
             </div>
         </div>
-
         <div class="col-8">
             <div class="row">
                 <div class="col-6">
@@ -30,11 +29,12 @@
         
         <div class="col-12">
             <form method="post" id="regis_factura" class="row">
+                <input type="text" id="id_cliente" name="id_cliente" hidden>
                 <div class="col-2">
                     <input type="text" class="form-control" id="referencia" placeholder="referencia de factura" name="referencia">
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control" id="producto" placeholder="producto" name="prodcuto">
+                    <input type="text" class="form-control" id="producto" placeholder="producto" name="producto">
                 </div>
                 <div class="col-2">
                     <input type="text" class="form-control" id="cantidad" placeholder="cantidad" name="cantidad">
@@ -43,10 +43,10 @@
                     <input type="text" class="form-control" id="precio" placeholder="precio" name="precio">
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control" id="descuento" placeholder="descuento" name="descuento">
+                    <input type="text" class="form-control" id="descuento" placeholder="descuento" value="0" name="descuento">
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control" id="impuesto" placeholder="19%" name="impuesto" disabled>
+                    <button type="submit" class="btn btn-dark" >GUARDAR</button>
                 </div>
             </form>
         </div>
@@ -65,11 +65,15 @@
             <th>Total </th>
         </thead>
         <tbody>
-            
+            <tr class="text-light">
+                <th colspan="6" class="table-active text-left">Total a pagar</td>
+                <td class="text-center" id="total_pagar"></td>
+            </tr>
         </tbody>
     </table>
 </div>
 {% endblock %}
 {% block javascript %}
     <script src="{{ url_for('static', filename='js/cliente.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/regis_factura.js') }}" defer></script>
 {% endblock %}

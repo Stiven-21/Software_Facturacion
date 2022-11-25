@@ -2,7 +2,7 @@ from flask import Flask, redirect,render_template,url_for,request,session, jsoni
 from controllers.autenticacionController import autenticado
 from controllers.validacionesController import numero
 from controllers import CrearClienteController, actualizarUsuarioController
-from models import getUserModel, getRolesModel, getLoginModel, insertLoginModel, updateUsersModel
+from models import getUserModel, getRolesModel, getLoginModel, getFacturasModel, insertFacturasModel, insertLoginModel, updateUsersModel
 from controllers import CrearClienteController,loginController,facturasController
 
 app = Flask(__name__)
@@ -117,19 +117,43 @@ def crearLogin():
     else:
         return render_template("views/login/login.html")
     
+@app.route('/buscar-referencia', methods=['POST'])
+def buscarFacturaReferencia():
+    if autenticado():
+        referencia = numero(request.form['referencia'])
+        factura = getFacturasModel.getFacturasWithReferencia(referencia=referencia)
+        return jsonify(factura)
+    else:
+        return render_template("views/login/login.html")
+    
 @app.route('/crear-factura', methods=['GET','POST'])
 def crearFactura():
     if autenticado():
         return render_template("views/facturas/crear.html")
     else:
-        return render_template("views/facturas/crear.html")
+        return render_template("views/login/login.html")
+    
+@app.route('/guardar-factura', methods = ['POST'])
+def guardarFactura():
+    if autenticado():
+        id_cliente = numero(request.form['id_cliente'])
+        referencia = numero(request.form['referencia'])
+        descripcion = request.form['producto']
+        cantidad = numero(request.form['cantidad'])
+        precio_unitario = numero(request.form['precio'])
+        descuento = numero(request.form['descuento'])
+        impuesto = 19
+        insertFacturasModel.CrearFactura(id_cliente = id_cliente, referencia = referencia, descripcion = descripcion, cantidad = cantidad, precio_unitario = precio_unitario, descuento = descuento, impuesto = impuesto)
+        return "EXITOSO"
+    else:
+        return render_template("views/login/login.html")
     
 @app.route("/cliente", methods=['POST'])
 def Cliente():
     if autenticado():
         return render_template("views/facturas/crear.html")
     else:
-        return render_template("views/facturas/crear.html")
+        return render_template("views/login/login.html")
     
     
 app.run(debug=True)
